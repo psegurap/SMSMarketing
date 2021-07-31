@@ -297,7 +297,7 @@
                     </li>
 
                     <li class="menu">
-                        <a href="fonticons.html" aria-expanded="false" data-active="true" class="dropdown-toggle campaigns-menu">
+                        <a href="{{route('campaigns')}}" aria-expanded="false" data-active="true" class="dropdown-toggle campaigns-menu">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-target"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
                                 <span>Campaigns</span>
@@ -353,8 +353,10 @@
     <script src="{{asset('cork/plugins/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
     <script src="{{asset('cork/assets/js/app.js')}}"></script>    
     <script src="{{asset('cork/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+    <script src="{{asset('js/libraries/axios.js')}}"></script>
     <script src="{{asset('js/main.js')}}"></script>
     <script>
+        var homepath = "{{url('/')}}";
         $(document).ready(function() {
             App.init();
         });

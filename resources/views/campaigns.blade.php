@@ -3,7 +3,33 @@
 @section('styles')
 <link rel="stylesheet" type="text/css" href="{{asset('cork/assets/css/forms/theme-checkbox-radio.css')}}">
 <link href="{{asset('cork/plugins/jquery-ui/jquery-ui.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('cork/plugins/file-upload/file-upload-with-preview.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('cork/assets/css/apps/contacts.css')}}" rel="stylesheet" type="text/css" />
+<style>
+    .custom-file-container__image-preview{
+        height: 150px;
+        margin-bottom: 0;
+        border: 2px dashed #bdccef;
+        margin-top: 1em;
+    }
+
+    .custom-file-container__custom-file__custom-file-control{
+        display: flex;
+        border: 2px solid #bdccef;
+    }
+
+    .modal-footer{
+        justify-content: space-between
+    }
+
+    #upload-next-btn{
+        margin-left: auto
+    }
+
+    .wait-text, .spinner-upload{
+        display: none;
+    }
+</style>
 @endsection
 
 @section('page_name')Campaigns @endsection
@@ -26,12 +52,7 @@
 
                     <div class="col-xl-8 col-lg-7 col-md-7 col-sm-5 text-sm-right text-center layout-spacing align-self-center">
                         <div class="d-flex justify-content-sm-end justify-content-center">
-                            <svg id="btn-add-contact" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
-
-                            <div class="switch align-self-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list view-list active-view"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3" y2="6"></line><line x1="3" y1="12" x2="3" y2="12"></line><line x1="3" y1="18" x2="3" y2="18"></line></svg>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid view-grid"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-                            </div>
+                            <svg id="btn-add-contact" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-square"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
                         </div>
 
                         <!-- Modal -->
@@ -44,58 +65,26 @@
                                             <div class="add-contact-content">
                                                 <form id="addContactModalTitle">
                                                     <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="contact-name">
-                                                                <i class="flaticon-user-11"></i>
-                                                                <input type="text" id="c-name" class="form-control" placeholder="Name">
-                                                                <span class="validation-text"></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="contact-email">
-                                                                <i class="flaticon-mail-26"></i>
-                                                                <input type="text" id="c-email" class="form-control" placeholder="Email">
-                                                                <span class="validation-text"></span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="contact-occupation">
-                                                                <i class="flaticon-fill-area"></i>
-                                                                <input type="text" id="c-occupation" class="form-control" placeholder="Occupation">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-md-6">
-                                                            <div class="contact-phone">
-                                                                <i class="flaticon-telephone"></i>
-                                                                <input type="text" id="c-phone" class="form-control" placeholder="Phone">
-                                                                <span class="validation-text"></span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row">
                                                         <div class="col-md-12">
-                                                            <div class="contact-location">
-                                                                <i class="flaticon-location-1"></i>
-                                                                <input type="text" id="c-location" class="form-control" placeholder="Location">
+                                                            <div class="custom-file-container" data-upload-id="csv_upload">
+                                                                <label>Upload (Single File) <a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image">x</a></label>
+                                                                <label class="custom-file-container__custom-file" >
+                                                                    <input type="file" class="custom-file-container__custom-file__custom-file-input" accept=".csv">
+                                                                    <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
+                                                                    <span class="custom-file-container__custom-file__custom-file-control"></span>
+                                                                </label>
+                                                                <div class="custom-file-container__image-preview"></div>
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button id="btn-edit" class="float-left btn">Save</button>
-
-                                        <button class="btn" data-dismiss="modal"> <i class="flaticon-delete-1"></i> Discard</button>
-
-                                        <button id="btn-add" class="btn">Add</button>
+                                        <span class="wait-text font-weight-bold">Please wait...</span>
+                                        <div class="spinner-upload align-self-center spinner-border text-info"></div>
+                                        <button class="btn btn-info mb-2" id="upload-next-btn">Next</button>
                                     </div>
                                 </div>
                             </div>
@@ -418,8 +407,10 @@
 
 @section('scripts')
 <script>
-    SetSidebarActiveOption('.campaigns-menu')
+    SetSidebarActiveOption('.campaigns-menu');
 </script>
+<script src="{{asset('cork/plugins/file-upload/file-upload-with-preview.min.js')}}"></script>
 <script src="{{asset('cork/assets/js/custom.js')}}"></script>
 <script src="{{asset('cork/assets/js/apps/contact.js')}}"></script>
+<script src="{{asset('js/campaigns.js')}}"></script>
 @endsection
