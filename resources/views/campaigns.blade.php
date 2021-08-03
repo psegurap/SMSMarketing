@@ -32,7 +32,9 @@
 </style>
 @endsection
 
-@section('page_name')Campaigns @endsection
+@section('page_name') 
+    <li class="breadcrumb-item active" aria-current="page"><span>Campaigns</span></li>
+@endsection
 
 @section('content')
 <div class="layout-px-spacing">                

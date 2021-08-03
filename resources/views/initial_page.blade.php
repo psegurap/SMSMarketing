@@ -3,7 +3,9 @@
 @section('styles')
     
 @endsection
-@section('page_name')NAME_HERE @endsection
+@section('page_name')
+<li class="breadcrumb-item active" aria-current="page"><span>Page name</span></li>
+@endsection
 
 
 @section('content')
