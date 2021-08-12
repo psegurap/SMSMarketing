@@ -24,14 +24,14 @@ class CampaignsController extends Controller
             'last_name' => 'Last Name',
             'phone_number' => 'Prone Number',
             'email_address' => 'Email Address',
-            // 'property_address' => 'Property Address',
-            // 'property_city' => 'Property City',
-            // 'property_state' => 'Property State',
-            // 'property_zip_code' => 'Property Zip Code',
-            // 'mail_address' => 'Mail Address',
-            // 'mail_city' => 'Mail City',
-            // 'mail_state' => 'Mail State',
-            // 'mail_zip_code' => 'Mail Zip Code',
+            'property_street_address' => 'Property Address',
+            'property_city' => 'Property City',
+            'property_state' => 'Property State',
+            'property_zip_code' => 'Property Zip Code',
+            'mail_street_address' => 'Mail Address',
+            'mail_city' => 'Mail City',
+            'mail_state' => 'Mail State',
+            'mail_zip_code' => 'Mail Zip Code',
         ];
 
         return view('configure_cvs', compact('columns_name', 'db_columns'));

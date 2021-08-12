@@ -3,12 +3,22 @@
 @section('styles')
     <style>
         #form-selects .single-select{
-            width: 20%;
+            width: 25%;
         }
         #form-selects .single-select .form-group{
             box-shadow: 0px 1px 3px 1px #757677;
-            border-radius: 5px;
+            border-radius: 3px;
+            background-color: #0e1726;
         }
+
+        #form-selects .single-select .form-group select{
+            border-radius: 2px
+        }
+
+        #form-selects .single-select .form-group select:focus{
+            box-shadow: 0px 0px 3px 0px #757677;
+        }
+
         #create-campaign-btn{
             margin-left: auto
         }
@@ -33,14 +43,14 @@
                     <div class="col-md-12 campaign form">
                         <div class="campaign-name">
                             <div class="form-group">
-                                <label for="campaigns_name" class="font-weight-bold text-uppercase">Campaign Name:</label>
+                                <label for="campaigns_name" class="font-weight-bold text-uppercase text-black">Campaign Name:</label>
                                 <input type="text" class="form-control" id="campaigns_name" placeholder="Type here...">
                             </div> 
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="title mb-2">
-                            <span class="font-italic h6">Please, select and match the proper incoming column:</span>
+                            <span class="font-italic font-weight-bold h6 text-body">Select and match the proper incoming column:</span>
                         </div>
                         <div id="form-selects" class="d-flex flex-wrap">
                             

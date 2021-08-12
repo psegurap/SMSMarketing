@@ -15,7 +15,7 @@ $(document).ready(function(){
         let select = document.createElement('select');
         select.addEventListener('change', function(){
             if($(this).val() != '' || $(this).val() != null){
-                $(this).css('border', '1px solid #bfc9d4');
+                $(this).css('box-shadow', 'none');
             }
         });
         select.classList.add('form-control');
@@ -65,7 +65,7 @@ $(document).ready(function(){
         isValidated = true;
         selects.map(function(){
             if ($(this).val() == '' || $(this).val() == null) {
-                $(this).css('border', '1px solid #f96d6d');
+                $(this).css('box-shadow', '0px 0px 3px 2px red');
                 isValidated = false;
             }
         });

@@ -10,4 +10,4 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-resources/temporary_upload/
+/resources/temporary_upload/
