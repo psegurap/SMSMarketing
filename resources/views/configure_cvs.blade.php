@@ -2,9 +2,19 @@
 @section('title')Prepare Campaign @endsection
 @section('styles')
     <style>
+        #form-selects .single-select{
+            width: 20%;
+        }
         #form-selects .single-select .form-group{
             box-shadow: 0px 1px 3px 1px #757677;
             border-radius: 5px;
+        }
+        #create-campaign-btn{
+            margin-left: auto
+        }
+
+        .wait-text, .submit-contaier .spinner-upload{
+            display: none;
         }
     </style>
 @endsection
@@ -35,8 +45,10 @@
                         <div id="form-selects" class="d-flex flex-wrap">
                             
                         </div>
-                        <div class="pt-2 submit-contaier text-right">
-                            <button class="btn btn-info">Create Campaign</button>
+                        <div class="pt-2 submit-contaier d-flex justify-content-between">
+                            <span class="font-weight-bold wait-text">Please wait...</span>
+                            <div class="spinner-upload align-self-center spinner-border text-info"></div>
+                            <button id="create-campaign-btn" class="btn btn-info">Create Campaign</button>
                         </div>
                     </div>
                 </div>

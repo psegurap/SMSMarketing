@@ -13,6 +13,11 @@ $(document).ready(function(){
         label.innerHTML = db_columns[key];
 
         let select = document.createElement('select');
+        select.addEventListener('change', function(){
+            if($(this).val() != '' || $(this).val() != null){
+                $(this).css('border', '1px solid #bfc9d4');
+            }
+        });
         select.classList.add('form-control');
         select.setAttribute('name', key);
 
@@ -37,15 +42,46 @@ $(document).ready(function(){
 
     }
 
+    $('#create-campaign-btn').click(function(){
+        let isValidated = validateSelects();
+        if(isValidated){
+
+            $('#create-campaign-btn').hide()
+            $('.wait-text').show();
+            $('.spinner-upload').css('display', 'inline-block');
+
+            let selects_matched = prepareSelectObject();
+
+            axios.post(homepath + '/campaigns/store_csv_values', {selects_matched : selects_matched } ).then(function(response){
+                // window.location.href = homepath + '/campaigns/store_csv_values';
+            }).catch(function(error){
+                console.log(error);
+            });
+        }
+    });
+
+    function validateSelects(){
+        let selects = $('#form-selects').find('select');
+        isValidated = true;
+        selects.map(function(){
+            if ($(this).val() == '' || $(this).val() == null) {
+                $(this).css('border', '1px solid #f96d6d');
+                isValidated = false;
+            }
+        });
+        return isValidated;
+    }
+
+    function prepareSelectObject (){
+        let columns_matched = {};
+
+        let selects = $('#form-selects').find('select');
+        isValidated = true;
+        selects.map(function(){
+            let name = $(this).attr('name');
+            columns_matched[name] = $(this).val();
+        });
+        return columns_matched;
+    }
+
 });
-
-
-/*<div class="pl-2 pr-2 single-select">
-    <div class="form-group">
-        <label for="">First Select</label>
-        <select class="form-control" name="" id="">
-            <option selected disabled value="">Select...</option>
-
-        </select>
-    </div>
-</div> */
