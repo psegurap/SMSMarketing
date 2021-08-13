@@ -15,6 +15,7 @@ class AddContactIdToProperties extends Migration
     {
         Schema::table('properties', function (Blueprint $table) {
             $table->integer('contact_id');
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

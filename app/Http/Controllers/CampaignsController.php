@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Contact;
+use App\Property;
+use App\MailAddress;
 
 class CampaignsController extends Controller
 {
@@ -45,12 +48,48 @@ class CampaignsController extends Controller
         $csv = array_map('str_getcsv', file($file));
         $columns_name = $csv[0];
         $rows = array_splice($csv, 1);
-
-        // Store contacs
-        // Store property
-        // Store mail address
-
         $rows = $this->rows_to_object($columns_name, $rows);
+        $columns_matched = $request->selects_matched;
+
+        foreach ($rows as $row) {
+            // Store contacts
+            $contact_info = [
+                'first_name' => $row->{$columns_matched['first_name']},
+                'last_name' => $row->{$columns_matched['last_name']},
+                'phone_number' => $row->{$columns_matched['phone_number']},
+                'email_address' => $row->{$columns_matched['email_address']},
+            ];
+
+            $created_contact = Contact::create($contact_info);
+
+            // Store property
+            $property_info = [
+                'property_street_address' => $row->{$columns_matched['property_street_address']},
+                'property_city' => $row->{$columns_matched['property_city']},
+                'property_state' => $row->{$columns_matched['property_state']},
+                'property_zip_code' => $row->{$columns_matched['property_zip_code']},
+                'contact_id' => $created_contact->id,
+            ];
+            Property::create($property_info);
+
+            // Store mail address
+            $mail_address_info = [
+                'mail_street_address' => $row->{$columns_matched['mail_street_address']},
+                'mail_city' => $row->{$columns_matched['mail_city']},
+                'mail_state' => $row->{$columns_matched['mail_state']},
+                'mail_zip_code' => $row->{$columns_matched['mail_zip_code']},
+                'contact_id' => $created_contact->id,
+            ];
+            MailAddress::create($mail_address_info);
+
+            
+        }
+
+        return [Contact::all(), Property::all(), MailAddress::all()];
+
+
+        
+
         return [$request->selects_matched, $rows];
     }
 
