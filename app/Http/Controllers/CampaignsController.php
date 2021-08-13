@@ -46,6 +46,10 @@ class CampaignsController extends Controller
         $columns_name = $csv[0];
         $rows = array_splice($csv, 1);
 
+        // Store contacs
+        // Store property
+        // Store mail address
+
         $rows = $this->rows_to_object($columns_name, $rows);
         return [$request->selects_matched, $rows];
     }
