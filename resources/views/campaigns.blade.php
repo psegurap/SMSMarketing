@@ -410,6 +410,9 @@
 @section('scripts')
 <script>
     SetSidebarActiveOption('.campaigns-menu');
+    var campaigns = {!! json_encode($campaigns) !!};
+
+    console.log(campaigns);
 </script>
 <script src="{{asset('cork/plugins/file-upload/file-upload-with-preview.min.js')}}"></script>
 <script src="{{asset('cork/assets/js/custom.js')}}"></script>

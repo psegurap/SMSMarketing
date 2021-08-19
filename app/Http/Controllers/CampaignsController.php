@@ -11,7 +11,8 @@ use App\Campaign;
 class CampaignsController extends Controller
 {
     public function campaigns(){
-        return view('campaigns');
+        $campaigns = Campaign::all();
+        return view('campaigns', compact('campaigns'));
     }
 
     // View to match selects with incoming columns.
