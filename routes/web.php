@@ -25,6 +25,4 @@ Route::group(['prefix' => 'campaigns'], function(){
     
 });
 
-Route::get('/', function () {
-    return view('campaigns');
-})->name('campaigns');
+Route::get('/', 'CampaignsController@campaigns')->name('campaigns');
