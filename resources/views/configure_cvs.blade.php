@@ -44,7 +44,7 @@
                         <div class="campaign-name">
                             <div class="form-group">
                                 <label for="campaigns_name" class="font-weight-bold text-uppercase text-black">Campaign Name:</label>
-                                <input type="text" class="form-control" id="campaigns_name" placeholder="Type here...">
+                                <input type="text" class="form-control" id="campaign_name" placeholder="Type here...">
                             </div> 
                         </div>
                     </div>

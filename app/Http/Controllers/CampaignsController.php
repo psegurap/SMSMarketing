@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Contact;
 use App\Property;
 use App\MailAddress;
+use App\Campaign;
 
 class CampaignsController extends Controller
 {
@@ -51,6 +52,8 @@ class CampaignsController extends Controller
         $rows = $this->rows_to_object($columns_name, $rows);
         $columns_matched = $request->selects_matched;
 
+        $campaign_created = Campaign::create(['name' => $request->campaign_name]);
+
         foreach ($rows as $row) {
             // Store contacts
             $contact_info = [
@@ -58,6 +61,7 @@ class CampaignsController extends Controller
                 'last_name' => $row->{$columns_matched['last_name']},
                 'phone_number' => $row->{$columns_matched['phone_number']},
                 'email_address' => $row->{$columns_matched['email_address']},
+                'campaign_id' => $campaign_created->id
             ];
 
             $created_contact = Contact::create($contact_info);
