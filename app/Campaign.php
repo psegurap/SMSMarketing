@@ -12,4 +12,8 @@ class Campaign extends Model
     protected $table = 'campaigns';
     protected $guarded = [];
     protected $dates = ['deleted_at'];
+
+    public function contacts(){
+        return $this->hasMany('App\Contact', 'campaign_id', 'id');   
+    }
 }

@@ -18,6 +18,8 @@ Route::group(['prefix' => 'campaigns'], function(){
     Route::get('/', 'CampaignsController@campaigns')->name('campaigns');
     Route::get('/preparefile', 'CampaignsController@preparefile')->name('preparefile');
     Route::post('/store_csv_values', 'CampaignsController@store_csv_values');
+    Route::get('/contact_campaign/{id}', 'CampaignsController@contact_campaign');
+
 
     Route::group(['prefix' => 'files'], function(){
         Route::post('/temporary_upload', 'CampaignsController@temporary_upload');

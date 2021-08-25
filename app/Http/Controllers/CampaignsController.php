@@ -3,16 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Schema;
 use App\Contact;
 use App\Property;
 use App\MailAddress;
 use App\Campaign;
 
+
 class CampaignsController extends Controller
 {
     public function campaigns(){
         $campaigns = Campaign::all();
+
         return view('campaigns', compact('campaigns'));
+    }
+
+    public function contact_campaign($id){
+        $campaign = Campaign::with(['contacts' => function($contact){
+            $contact->with(['properties', 'mail_addresses'])->where('phone_number', '!=', '')->get();
+        }])->find($id);
+
+        return view('contact_campaign', compact('campaign'));
+        dd($campaign);
     }
 
     // View to match selects with incoming columns.

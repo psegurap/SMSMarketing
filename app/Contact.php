@@ -14,5 +14,12 @@ class Contact extends Model
     protected $guarded = [];
     protected $dates = ['deleted_at'];
 
+    public function properties(){
+        return $this->hasMany('App\Property', 'contact_id', 'id');   
+    }
+
+    public function mail_addresses(){
+        return $this->hasMany('App\MailAddress', 'contact_id', 'id');   
+    }
    
 }
