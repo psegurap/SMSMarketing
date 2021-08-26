@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 class Contact extends Model
 {
@@ -20,6 +21,15 @@ class Contact extends Model
 
     public function mail_addresses(){
         return $this->hasMany('App\MailAddress', 'contact_id', 'id');   
+    }
+
+
+    public function getCreatedAtAttribute($date) {
+        return date('Y-m-d H:i:s', strtotime($date));
+    }
+
+    public function getUpdatedAtAttribute($date) {
+        return date('Y-m-d H:i:s', strtotime($date));
     }
    
 }

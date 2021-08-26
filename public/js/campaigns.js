@@ -29,14 +29,6 @@ $(document).ready(function(){
         }
     });
 
-
-
-    // created_at: "2021-08-19T03:54:33.000000Z"
-    // deleted_at: null
-    // id: 1
-    // name: "Poblacion"
-    // updated_at: "2021-08-19T03:54:33.000000Z"
-    
     $('#upload-next-btn').click(function(){
         if (csv_upload.currentFileCount > 0) {
             UploadNextStep();

@@ -23,8 +23,12 @@ class CampaignsController extends Controller
             $contact->with(['properties', 'mail_addresses'])->where('phone_number', '!=', '')->get();
         }])->find($id);
 
+        // dd($campaign);
         return view('contact_campaign', compact('campaign'));
-        dd($campaign);
+    }
+
+    public function send_initial_message(Request $request){
+        return $request->contact_info;
     }
 
     // View to match selects with incoming columns.

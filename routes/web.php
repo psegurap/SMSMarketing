@@ -18,7 +18,13 @@ Route::group(['prefix' => 'campaigns'], function(){
     Route::get('/', 'CampaignsController@campaigns')->name('campaigns');
     Route::get('/preparefile', 'CampaignsController@preparefile')->name('preparefile');
     Route::post('/store_csv_values', 'CampaignsController@store_csv_values');
-    Route::get('/contact_campaign/{id}', 'CampaignsController@contact_campaign');
+
+
+    
+    Route::group(['prefix' => 'contact_campaign'], function(){
+        Route::get('/{id}', 'CampaignsController@contact_campaign');
+        Route::post('/send_initial_message', 'CampaignsController@send_initial_message');
+    });
 
 
     Route::group(['prefix' => 'files'], function(){

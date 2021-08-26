@@ -35,16 +35,16 @@
                                                         <div class="col-sm-6 col-12 mr-auto">
                                                         </div>
                                                         <div class="col-sm-6 text-sm-right">
-                                                            <p class="inv-list-number"><span class="inv-title">Campaign : </span> <span class="inv-number">{{$campaign->name}}</span></p>
+                                                            <p class="inv-list-number"><span class="inv-title"></span> <span class="inv-number">{{$campaign->name}}</span></p>
                                                         </div>
                                                         <div class="col-sm-6 align-self-center mt-3">
-                                                            <p class="inv-street-addr">{{$campaign->contacts[$i]['first_name']}} {{$campaign->contacts[$i]['last_name']}}</p>
-                                                            <p class="inv-email-address text-lowercase">{{$campaign->contacts[$i]['email_address']}}</p>
-                                                            <p class="inv-email-address">{{$campaign->contacts[$i]['phone_number']}}</p>
+                                                            <p class="inv-street-addr campaign-contact-name">{{$campaign->contacts[$i]['first_name']}} {{$campaign->contacts[$i]['last_name']}}</p>
+                                                            <p class="inv-email-address text-lowercase campaign-contact-email">{{$campaign->contacts[$i]['email_address']}}</p>
+                                                            <p class="inv-email-address campaign-contact-phone">{{$campaign->contacts[$i]['phone_number']}}</p>
                                                         </div>
                                                         <div class="col-sm-6 align-self-center mt-3 text-sm-right">
-                                                            <p class="inv-created-date"><span class="inv-title">Created Date : </span> <span class="inv-date">{{$campaign->created_at}}</span></p>
-                                                            <p class="inv-due-date"><span class="inv-title">Updated Date : </span> <span class="inv-date">{{$campaign->updated_at}}</span></p>
+                                                            <p class="inv-created-date"><span class="inv-title">Created Date : </span> <span class="inv-date campaign-contact-created">{{$campaign->created_at}}</span></p>
+                                                            <p class="inv-due-date"><span class="inv-title">Updated Date : </span> <span class="inv-date campaign-contact-updated">{{$campaign->updated_at}}</span></p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -62,19 +62,19 @@
                                                         
                                                         @foreach ($campaign->contacts[$i]['mail_addresses'] as $mail_address)
                                                         <div class="col-xl-6 col-lg-7 col-md-6 col-sm-4">
-                                                            <p class="inv-street-addr">{{$mail_address['mail_street_address']}}</p>
-                                                            <p class="inv-email-address">{{$mail_address['mail_city']}}, {{$mail_address['mail_state']}}</p>
-                                                            <p class="inv-email-address">{{$mail_address['mail_zip_code']}}</p>
+                                                            <p class="inv-street-addr campaign-mail-street">{{$mail_address['mail_street_address']}}</p>
+                                                            <p class="inv-email-address campaign-mail-city-state">{{$mail_address['mail_city']}}, {{$mail_address['mail_state']}}</p>
+                                                            <p class="inv-email-address campaign-mail-zip">{{$mail_address['mail_zip_code']}}</p>
                                                         </div>
                                                         @endforeach
                                                         
                                                         <div class="col-xl-6 col-lg-5 col-md-6 col-sm-8 col-12 order-sm-0 order-1">
                                                             @foreach ($campaign->contacts[$i]['properties'] as $property)
                                                             <div class="inv--payment-info">
-                                                                <p><span class=" inv-subtitle">Street:</span> <span>{{$property['property_street_address']}}</span></p>
-                                                                <p><span class=" inv-subtitle">City: </span> <span>{{$property['property_city']}}</span></p>
-                                                                <p><span class=" inv-subtitle">State:</span> <span>{{$property['property_state']}}</span></p>
-                                                                <p><span class=" inv-subtitle">Zip Code: </span> <span>{{$property['property_zip_code']}}</span></p>
+                                                                <p><span class="inv-subtitle">Street:</span> <span class="campaign-property-street">{{$property['property_street_address']}}</span></p>
+                                                                <p><span class="inv-subtitle">City: </span> <span class="campaign-property-city">{{$property['property_city']}}</span></p>
+                                                                <p><span class="inv-subtitle">State:</span> <span class="campaign-property-state">{{$property['property_state']}}</span></p>
+                                                                <p><span class="inv-subtitle">Zip Code: </span> <span class="campaign-property-zip">{{$property['property_zip_code']}}</span></p>
                                                             </div>
                                                             @endforeach
                                                         </div>
@@ -106,11 +106,9 @@
 
                                     <div class="row">
                                         <div class="col-xl-12 col-md-3 col-sm-6">
-                                            <a href="javascript:void(0);" class="btn btn-primary btn-send">Send Message</a>
+                                            <a href="javascript:void(0);" id="send-message" class="btn btn-primary btn-send mb-0">Send Message</a>
                                         </div>
-                                        <div class="col-xl-12 col-md-3 col-sm-6">
-                                            <a href="apps_invoice-edit.html" class="btn btn-dark btn-edit">Delete Property</a>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                                 
@@ -133,6 +131,8 @@
 <script>
     SetSidebarActiveOption('.campaigns-menu');
     var campaign = {!! json_encode($campaign) !!};
-    console.log(campaign);
 </script>
+
+<script src="{{asset('js/contact_campaign.js')}}"></script>
+
 @endsection

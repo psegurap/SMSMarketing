@@ -12,4 +12,12 @@ class MailAddress extends Model
     protected $table = 'mail_address';
     protected $guarded = [];
     protected $dates = ['deleted_at'];
+
+    public function getCreatedAtAttribute($date) {
+        return date('Y-m-d H:i:s', strtotime($date));
+    }
+
+    public function getUpdatedAtAttribute($date) {
+        return date('Y-m-d H:i:s', strtotime($date));
+    }
 }
