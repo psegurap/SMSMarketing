@@ -73,10 +73,13 @@ class CampaignsController extends Controller
 
         foreach ($rows as $row) {
             // Store contacts
+
+            $phone_modified = strlen(trim($row->{$columns_matched['phone_number']})) == 10 ? "1" . $row->{$columns_matched['phone_number']} : $row->{$columns_matched['phone_number']};
+
             $contact_info = [
                 'first_name' => $row->{$columns_matched['first_name']},
                 'last_name' => $row->{$columns_matched['last_name']},
-                'phone_number' => $row->{$columns_matched['phone_number']},
+                'phone_number' => $phone_modified,
                 'email_address' => $row->{$columns_matched['email_address']},
                 'campaign_id' => $campaign_created->id
             ];

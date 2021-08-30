@@ -17,7 +17,8 @@ $(document).ready(function(){
     });
 
     function SendMessage(contact_info){
-        axios.post(homepath + '/campaigns/contact_campaign/send_initial_message', {contact_info : contact_info} ).then(function(response){
+        let initial_message = 'Hey ' + contact_info['first_name'] + ", did you get my voicemail?"
+        axios.post(homepath + '/campaigns/contact_campaign/send_message', {contact_info : contact_info, text_details : initial_message} ).then(function(response){
             console.log(response.data);
         }).catch(function(error){
             console.log(error);

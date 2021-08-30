@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+// use Nexmo\Client;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,7 +23,9 @@ Route::group(['prefix' => 'campaigns'], function(){
     
     Route::group(['prefix' => 'contact_campaign'], function(){
         Route::get('/{id}', 'CampaignsController@contact_campaign');
-        Route::post('/send_initial_message', 'CampaignsController@send_initial_message');
+        Route::post('/send_message', 'ChatController@send_message');
+        Route::post('/receive_message', 'ChatController@receive_message');
+        
     });
 
 
