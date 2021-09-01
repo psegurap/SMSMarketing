@@ -11,7 +11,10 @@ use \Nexmo\Client;
 
 class ChatController extends Controller
 {
-    
+    public function conversations(){
+        $contacts = Contact::with('conversations')->wherehas('conversations')->get();
+        return view('conversations', compact('contacts'));
+    }
 
     public function send_message(Request $request){
         $basic = new \Nexmo\Client\Credentials\Basic(env('NEXMO_KEY'), env('NEXMO_SECRET'));
@@ -33,9 +36,9 @@ class ChatController extends Controller
             'type' => 'send',
             'message_id' => $message['message-id'],
             'remaining_balance' => $message['remaining-balance'],
+            'viewed' => 1,
         ];
         Conversation::create($text_info);
-
     }
 
     public function receive_message(){
@@ -55,6 +58,7 @@ class ChatController extends Controller
             'type' => 'receive',
             'message_id' => $incoming->getMessageId(),
             'remaining_balance' => $last_record->remaining_balance,
+            'viewed' => 0,
         ];
         Conversation::create($text_info);
     }

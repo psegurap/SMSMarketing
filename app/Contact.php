@@ -23,6 +23,10 @@ class Contact extends Model
         return $this->hasMany('App\MailAddress', 'contact_id', 'id');   
     }
 
+    public function conversations(){
+        return $this->hasMany('App\Conversation', 'contact_id', 'id');   
+    }
+
 
     public function getCreatedAtAttribute($date) {
         return date('Y-m-d H:i:s', strtotime($date));

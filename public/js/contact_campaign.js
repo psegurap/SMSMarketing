@@ -1,6 +1,23 @@
 
 
 $(document).ready(function(){
+
+    // $('#alertModal').modal({
+    //     backdrop: 'static',
+    //     keyboard: false
+    // });
+
+    $('#return-to-campaigns').click(function(){
+        window.location.href = homepath + '/campaigns';
+    });
+
+    if (campaign['contacts'].length == 0) {
+        $('#alertModal').find('.modal-text').text("This campaign has been fully contacted. Press 'OK' to return to campaigns.");
+        $('#alertModal').modal('show');
+    }
+
+    
+    
     let contacts = campaign['contacts'];
 
     $('#send-message').click(function(){
@@ -11,7 +28,8 @@ $(document).ready(function(){
                 ChangeContact();
             }
         }else{
-            console.log("DONE");
+            $('#alertModal').find('.modal-text').text("This campaign has been fully contacted. Press 'OK' to return to campaigns.");
+            $('#alertModal').modal('show');
         }
 
     });

@@ -35,4 +35,9 @@ Route::group(['prefix' => 'campaigns'], function(){
     
 });
 
+Route::group(['prefix' => 'conversations'], function(){
+    Route::get('/', 'ChatController@conversations')->name('conversations');
+});
+
+
 Route::get('/', 'CampaignsController@campaigns')->name('campaigns');

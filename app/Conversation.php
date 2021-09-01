@@ -12,4 +12,12 @@ class Conversation extends Model
     protected $table = 'conversations';
     protected $guarded = [];
     protected $dates = ['deleted_at'];
+
+    public function contact(){
+        return $this->hasMany('App\MailAddress', 'contact_id', 'id');   
+    }
+
+    public function getCreatedAtAttribute($date) {
+        return date('Y-m-d', strtotime($date));
+    }
 }

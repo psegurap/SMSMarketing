@@ -116,6 +116,22 @@
                             
                         </div>
 
+                        <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="alertModal" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-black" id="exampleModalLabel">Important:</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p class="font-italic h6 mb-0 modal-text"> </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button id="return-to-campaigns" type="button" class="btn btn-primary">OK</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
 
                     </div>
                     
