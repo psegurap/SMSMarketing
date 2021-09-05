@@ -12,8 +12,14 @@ use \Nexmo\Client;
 class ChatController extends Controller
 {
     public function conversations(){
-        $contacts = Contact::with('conversations')->wherehas('conversations')->get();
+        $contacts = $this->get_conversations();
         return view('conversations', compact('contacts'));
+    }
+
+    public function get_conversations(){
+
+        $contacts = Contact::with('conversations')->wherehas('conversations')->get();
+        return $contacts;
     }
 
     public function send_message(Request $request){
@@ -21,7 +27,7 @@ class ChatController extends Controller
         $client = new \Nexmo\Client($basic);
 
         $contact_info = $request->contact_info;
-    
+
         $message = $client->message()->send([
             'to' => $contact_info['phone_number'],
             'from' => env('NEXMO_NUMBER'),
@@ -39,6 +45,9 @@ class ChatController extends Controller
             'viewed' => 1,
         ];
         Conversation::create($text_info);
+
+        $contacts = $this->get_conversations();
+        return ['contacts' => $contacts];
     }
 
     public function receive_message(){
@@ -46,7 +55,7 @@ class ChatController extends Controller
         $incoming = \Nexmo\SMS\Webhook\Factory::createFromGlobals();
         $from = strlen(trim($incoming->getFrom())) == 10 ? '1' . trim($incoming->getFrom()) : trim($incoming->getFrom());
 
-        $conversation_info = Conversation::where('phone_number', $from)->first();
+        $conversation_info = Conversation::orderBy('id', 'desc')->where('phone_number', $from)->first();
         $contact_info = Contact::where('id', $conversation_info->contact_id)->where('phone_number', $from)->first();
         $last_record = Conversation::orderBy('id', 'desc')->first();
     

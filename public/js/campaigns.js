@@ -9,7 +9,6 @@ $(document).ready(function(){
     $('#campaigns-table').DataTable({
         responsive : true,
         paging: false,
-        
     });
 
     $('#campaigns-table .campaign-option').click(function (){
