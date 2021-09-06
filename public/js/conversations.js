@@ -25,34 +25,30 @@ $(document).ready(function(){
                 this.current_contact = contact;
             },
             SendMessage : function (input){
-
-                this.contacts[this.contacts.indexOf(this.current_contact)]['conversations'].length;
-
                 let _this = this;
-
                 let message = input.val();
                 input.val('');
 
                 axios.post(homepath + '/campaigns/contact_campaign/send_message', {contact_info : this.current_contact, text_details : message} ).then(function(response){
                     _this.contacts = response.data.contacts;
 
-                    _this.updated_conversations_length = _this.contacts[_this.contacts.indexOf(_this.current_contact)]['conversations'].length
+                    // _this.updated_conversations_length = _this.contacts[_this.contacts.indexOf(_this.current_contact)]['conversations'].length;
+                    _this.updated_conversations_length = _this.contacts.find(contact => contact.id ===  _this.current_contact.id);
+                    _this.updated_conversations_length = _this.updated_conversations_length['conversations'].length;
 
-                    if ($('.chat[data-chat=' + _this.current_contact.id + '] .bubble').length != _this.updated_conversations_length) {
+                    if ($('.chat[data-chat=' + _this.current_contact.id + '] .bubble').length == _this.updated_conversations_length) {
                         Snackbar.show({
                             text: 'There was an error sending your text.',
                             actionTextColor: '#fff',
                             backgroundColor: '#e7515a'
                         });
-                        $('.chat[data-chat=' + _this.current_contact.id + '] .bubble.me:last').remove();
                     }else{
                         let getScrollContainer = document.querySelector('.chat-conversation-box');
                         getScrollContainer.scrollTop = getScrollContainer.scrollHeight;
                     }
 
                 }).catch(function(error){
-                    if ($('.chat[data-chat=' + _this.current_contact.id + '] .bubble').length != _this.updated_conversations_length) {
-                        $('.chat[data-chat=' + _this.current_contact.id + '] .bubble.me:last').remove();
+                    if ($('.chat[data-chat=' + _this.current_contact.id + '] .bubble').length == _this.updated_conversations_length) {
                         Snackbar.show({
                             text: "There was an error sending your text.",
                             actionTextColor: '#fff',
