@@ -36,7 +36,7 @@ $(document).ready(function(){
                 axios.post(homepath + '/campaigns/contact_campaign/send_message', {contact_info : this.current_contact, text_details : message} ).then(function(response){
                     _this.contacts = response.data.contacts;
 
-                    _this.updated_conversations_length =  this.contacts[this.contacts.indexOf(this.current_contact)]['conversations'].length
+                    _this.updated_conversations_length = _this.contacts[_this.contacts.indexOf(_this.current_contact)]['conversations'].length
 
                     if ($('.chat[data-chat=' + _this.current_contact.id + '] .bubble').length != _this.updated_conversations_length) {
                         Snackbar.show({
