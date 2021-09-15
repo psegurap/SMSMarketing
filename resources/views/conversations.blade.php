@@ -29,7 +29,7 @@
                             <input type="text" class="form-control" placeholder="Search" />
                         </div>
                         <div class="people">
-                            <div v-for="contact in contacts" @click=OpenChat(contact) class="person" :data-chat="contact.id">
+                            <div v-for="contact in contacts" @click=OpenChat(event,contact) class="person" :class="contact.conversations[contact.conversations.length - 1]['viewed'] == 0 ? 'unread' : ''"  :data-chat="contact.id">
                                 <div class="user-info">
                                     <div class="f-body">
                                         <div class="meta-info">

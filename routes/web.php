@@ -37,6 +37,8 @@ Route::group(['prefix' => 'campaigns'], function(){
 
 Route::group(['prefix' => 'conversations'], function(){
     Route::get('/', 'ChatController@conversations')->name('conversations');
+    Route::post('/update_unread', 'ChatController@update_unread');
+    Route::post('/refresh_conversations', 'ChatController@refresh_conversations');
 });
 
 

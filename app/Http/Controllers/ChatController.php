@@ -28,23 +28,24 @@ class ChatController extends Controller
 
         $contact_info = $request->contact_info;
 
-        $message = $client->message()->send([
-            'to' => $contact_info['phone_number'],
-            'from' => env('NEXMO_NUMBER'),
-            'text' => $request->text_details
-        ]);
+        // $message = $client->message()->send([
+        //     'to' => $contact_info['phone_number'],
+        //     'from' => env('NEXMO_NUMBER'),
+        //     'text' => $request->text_details
+        // ]);
 
-        $text_info = [
-            'contact_id' => $contact_info['id'],
-            'campaign_id' => $contact_info['campaign_id'],
-            'phone_number' => $contact_info['phone_number'],
-            'text_details' => $request->text_details,
-            'type' => 'send',
-            'message_id' => $message['message-id'],
-            'remaining_balance' => $message['remaining-balance'],
-            'viewed' => 1,
-        ];
-        Conversation::create($text_info);
+        // $text_info = [
+        //     'contact_id' => $contact_info['id'],
+        //     'campaign_id' => $contact_info['campaign_id'],
+        //     'phone_number' => $contact_info['phone_number'],
+        //     'text_details' => $request->text_details,
+        //     'type' => 'send',
+        //     'message_id' => $message['message-id'],
+        //     'remaining_balance' => $message['remaining-balance'],
+        //     'viewed' => 1,
+        // ];
+        // Conversation::create($text_info);
+        Conversation::where('campaign_id', $contact_info['campaign_id'])->where('contact_id', $contact_info['id'])->update(['viewed' => 1]);
 
         $contacts = $this->get_conversations();
         return ['contacts' => $contacts];
@@ -70,5 +71,17 @@ class ChatController extends Controller
             'viewed' => 0,
         ];
         Conversation::create($text_info);
+    }
+
+    public function update_unread (Request $request) {
+        $contact_info = $request->contact_info;
+        Conversation::where('campaign_id', $contact_info['campaign_id'])->where('contact_id', $contact_info['id'])->update(['viewed' => 1]);
+        $contacts = $this->get_conversations();
+        return ['contacts' => $contacts];
+    }
+
+    public function refresh_conversations() {
+        $contacts = $this->get_conversations();
+        return ['contacts' => $contacts];
     }
 }
