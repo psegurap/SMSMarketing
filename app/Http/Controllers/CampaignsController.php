@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Schema;
+use Auth;
 use App\Contact;
 use App\Property;
 use App\MailAddress;
@@ -13,7 +14,7 @@ use App\Campaign;
 class CampaignsController extends Controller
 {
     public function campaigns(){
-        $campaigns = Campaign::all();
+        $campaigns = Campaign::where('user_id', Auth::user()->id)->get();
 
         return view('campaigns', compact('campaigns'));
     }
@@ -25,10 +26,6 @@ class CampaignsController extends Controller
 
         // dd($campaign);
         return view('contact_campaign', compact('campaign'));
-    }
-
-    public function send_initial_message(Request $request){
-        return $request->contact_info;
     }
 
     // View to match selects with incoming columns.
@@ -69,7 +66,7 @@ class CampaignsController extends Controller
         $rows = $this->rows_to_object($columns_name, $rows);
         $columns_matched = $request->selects_matched;
 
-        $campaign_created = Campaign::create(['name' => $request->campaign_name]);
+        $campaign_created = Campaign::create(['name' => $request->campaign_name, 'user_id' => Auth::user()->id]);
 
         foreach ($rows as $row) {
             // Store contacts

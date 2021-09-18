@@ -27,12 +27,12 @@
 
             <ul class="navbar-item theme-brand flex-row  text-center">
                 <li class="nav-item theme-logo">
-                    <a href="index.html">
+                    <a href="{{'/'}}">
                         <img src="{{asset('images/logo/home.svg')}}" class="navbar-logo" alt="logo">
                     </a>
                 </li>
                 <li class="nav-item theme-text">
-                    <a href="index.html" class="nav-link"> SMS </a>
+                    <a href="{{'/'}}" class="nav-link"> SMS </a>
                 </li>
             </ul>
 
