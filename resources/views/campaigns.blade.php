@@ -138,8 +138,8 @@
                                 <tr>
                                     <td>{{$campaign->name}}</td>
                                     <td>{{$campaign->created_at}}</td>
-                                    <td >320</td>
-                                    <td >320</td>
+                                    <td>320</td>
+                                    <td>320</td>
                                     <td class="text-center"><span>{{$campaign->updated_at}}</span></td>
                                     <td class="text-center options">
                                         <span class="campaign-option" data-option="Chat" data-campaignId="{{$campaign->id}}" title="Campaign Chat">

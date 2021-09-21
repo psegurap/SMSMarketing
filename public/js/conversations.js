@@ -75,6 +75,22 @@ $(document).ready(function(){
                     console.log(error);
                 });
             },
+            PropertyInfo: function () {
+                window.open(homepath + '/campaigns/propertyinfo/' + this.current_contact.campaign_id + "/" + this.current_contact.id, '_blank');
+            },
+            ArchiveProperty: function () {
+                var _this = this;
+                axios.post(homepath + '/campaigns/archive_contact', {contact_info : this.current_contact}).then(function(response){
+                    _this.RefreshTimer();
+                    _this.contacts = response.data.contacts;
+                }).catch(function(error){
+                    console.log(error);
+                });
+
+                $('.chat-not-selected').css('display', 'flex');
+                $('.overlay-phone-call, .overlay-video-call, .chat-box-inner').hide();
+                $('.user-list-box .person.active').remove();
+            },
             RefreshConversations : function () {
                 var _this = this;
                 axios.post(homepath + '/conversations/refresh_conversations').then(function(response){

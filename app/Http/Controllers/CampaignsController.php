@@ -19,13 +19,25 @@ class CampaignsController extends Controller
         return view('campaigns', compact('campaigns'));
     }
 
+    public function property_info($campaign_id, $contact_id) {
+        $campaign = Campaign::with(['contacts' => function ($contact) use ($contact_id){
+            $contact->with(['properties', 'mail_addresses'])->where('id', $contact_id)->get();
+        }])->find($campaign_id);
+        return view('property_info', compact('campaign'));
+    }
+
     public function contact_campaign($id){
         $campaign = Campaign::with(['contacts' => function($contact){
             $contact->with(['properties', 'mail_addresses'])->where('phone_number', '!=', '')->get();
         }])->find($id);
-
-        // dd($campaign);
         return view('contact_campaign', compact('campaign'));
+    }
+
+    public function archive_contact(Request $request){
+        Contact::where('id', $request->contact_info['id'])->delete();
+        $contacts = $this->get_conversations();
+        return ['contacts' => $contacts];
+        // return $request->contact_info['id'];
     }
 
     // View to match selects with incoming columns.
@@ -166,5 +178,10 @@ class CampaignsController extends Controller
                 // Delete the file
                 unlink($file); 
         }
+    }
+
+    public function get_conversations(){
+        $contacts = Contact::with('conversations')->wherehas('conversations')->get();
+        return $contacts;
     }
 }

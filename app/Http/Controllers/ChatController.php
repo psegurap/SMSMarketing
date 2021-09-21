@@ -17,7 +17,6 @@ class ChatController extends Controller
     }
 
     public function get_conversations(){
-
         $contacts = Contact::with('conversations')->wherehas('conversations')->get();
         return $contacts;
     }
