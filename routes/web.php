@@ -19,6 +19,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('/', 'CampaignsController@campaigns')->name('campaigns');
         Route::get('/preparefile', 'CampaignsController@preparefile')->name('preparefile');
         Route::post('/store_csv_values', 'CampaignsController@store_csv_values');
+        Route::get('/properties/{id}', 'CampaignsController@campaign_properties');
 
         
         Route::get('/propertyinfo/{campaign_id}/{contact_id}', 'CampaignsController@property_info');

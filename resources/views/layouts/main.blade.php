@@ -227,7 +227,7 @@
 
                         <nav class="breadcrumb-one" aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="javascript:void(0);">Home</a></li>
+                                <li class="breadcrumb-item"><a href="{{route('campaigns')}}">Home</a></li>
                                 @yield('page_name')
                             </ol>
                         </nav>

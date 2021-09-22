@@ -18,7 +18,7 @@ $(document).ready(function(){
                 window.location = homepath + '/campaigns/contact_campaign/' + $(this).data('campaignid');
                 break;
             case 'Properties':
-                console.log("Properties");
+                window.open(homepath + '/campaigns/properties/' + $(this).data('campaignid'), '_blank');
                 break;
             case 'Delete':
                 console.log("Delete");

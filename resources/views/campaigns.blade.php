@@ -54,6 +54,10 @@
         cursor: pointer;
     }
 
+    .filtered-list-search {
+        visibility: hidden;
+    }
+
 </style>
 @endsection
 
@@ -138,9 +142,15 @@
                                 <tr>
                                     <td>{{$campaign->name}}</td>
                                     <td>{{$campaign->created_at}}</td>
-                                    <td>320</td>
-                                    <td>320</td>
-                                    <td class="text-center"><span>{{$campaign->updated_at}}</span></td>
+                                    <td>{{$campaign->contacts_count}}</td>
+                                    <td>{{count($campaign->contacts)}}</td>
+                                    <td class="text-center"><span>
+                                        @if (count($campaign->contacts) > 0)
+                                         {{$campaign->last_outreach->created_at}}
+                                        @else
+                                            <span class="shadow-none badge badge-warning">Not Contacted</span>
+                                        @endif
+                                    </span></td>
                                     <td class="text-center options">
                                         <span class="campaign-option" data-option="Chat" data-campaignId="{{$campaign->id}}" title="Campaign Chat">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="text-success" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
@@ -157,41 +167,6 @@
                             </tbody>
                         </table>
                     </div>
-
-                    {{-- <div class="items">
-                        <div class="item-content">
-                            <div class="user-profile">
-                                <div class="n-chk align-self-center text-center">
-                                    <label class="new-control new-checkbox checkbox-primary">
-                                      <input type="checkbox" class="new-control-input contact-chkbox">
-                                      <span class="new-control-indicator"></span>
-                                    </label>
-                                </div>
-                                <img src="{{asset('cork/assets/img/90x90.jpg')}}" alt="avatar">
-                                <div class="user-meta-info">
-                                    <p class="user-name" data-name="Linda Nelson">Linda Nelson</p>
-                                    <p class="user-work" data-occupation="Web Designer">Web Designer</p>
-                                </div>
-                            </div>
-                            <div class="user-email">
-                                <p class="info-title">Email: </p>
-                                <p class="usr-email-addr" data-email="linda@mail.com">linda@mail.com</p>
-                            </div>
-                            <div class="user-location">
-                                <p class="info-title">Location: </p>
-                                <p class="usr-location" data-location="Sydney, Australia">Sydney, Australia</p>
-                            </div>
-                            <div class="user-phone">
-                                <p class="info-title">Phone: </p>
-                                <p class="usr-ph-no" data-phone="+1 (070) 123-4567">+1 (070) 123-4567</p>
-                            </div>
-                            <div class="action-btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 edit"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
-
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-minus delete"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="23" y1="11" x2="17" y2="11"></line></svg>
-                            </div>
-                        </div>
-                    </div> --}}
                 </div>
 
             </div>

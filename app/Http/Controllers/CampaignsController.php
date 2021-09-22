@@ -9,13 +9,20 @@ use App\Contact;
 use App\Property;
 use App\MailAddress;
 use App\Campaign;
+use App\Conversation;
 
 
 class CampaignsController extends Controller
 {
     public function campaigns(){
-        $campaigns = Campaign::where('user_id', Auth::user()->id)->get();
+        $campaigns = Campaign::withCount('contacts')->with(['contacts' => function ($contact) {
+            $contact->with(['conversations'])->wherehas('conversations')->get();
+        }])->where('user_id', Auth::user()->id)->get();
 
+        $campaigns = $campaigns->map(function ($campaign) {
+            $campaign['last_outreach'] = Conversation::select('created_at')->where('campaign_id', $campaign->id)->orderBy('created_at', 'desc')->first();
+            return $campaign;
+        });
         return view('campaigns', compact('campaigns'));
     }
 
@@ -37,7 +44,19 @@ class CampaignsController extends Controller
         Contact::where('id', $request->contact_info['id'])->delete();
         $contacts = $this->get_conversations();
         return ['contacts' => $contacts];
-        // return $request->contact_info['id'];
+    }
+
+    public function campaign_properties($campaign_id) {
+
+        $reachable_properties = Campaign::with(['contacts' => function($contact){
+            $contact->with(['properties'])->withCount('conversations')->where('phone_number', '!=', '')->get();
+        }])->find($campaign_id);
+
+        $unreachable_properties = Campaign::with(['contacts' => function($contact){
+            $contact->with(['properties'])->withCount('conversations')->where('phone_number', '')->get();
+        }])->find($campaign_id);
+
+        return view('campaign_properties', compact('reachable_properties', 'unreachable_properties'));
     }
 
     // View to match selects with incoming columns.
