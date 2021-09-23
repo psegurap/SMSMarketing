@@ -106,7 +106,7 @@
 
                                     <div class="row">
                                         <div class="col-xl-12 col-md-3 col-sm-6">
-                                            <a href="javascript:void(0);" id="send-message" class="btn btn-primary btn-send mb-0">Send Message</a>
+                                            <a href="javascript:void(0);" id="send-message" class="btn btn-info btn-send mb-0">Send Message</a>
                                         </div>
                                         
                                     </div>

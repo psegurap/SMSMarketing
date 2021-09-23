@@ -21,6 +21,7 @@ class CampaignsController extends Controller
 
         $campaigns = $campaigns->map(function ($campaign) {
             $campaign['last_outreach'] = Conversation::select('created_at')->where('campaign_id', $campaign->id)->orderBy('created_at', 'desc')->first();
+            $campaign['reachable_contacs'] = count(Contact::where('campaign_id', $campaign->id)->where('phone_number', '!=', '')->get());
             return $campaign;
         });
         return view('campaigns', compact('campaigns'));

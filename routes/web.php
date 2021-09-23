@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['middleware' => ['auth']], function(){
+    Route::get('/', 'CampaignsController@campaigns')->name('campaigns');
 
     Route::group(['prefix' => 'campaigns'], function(){
         Route::get('/', 'CampaignsController@campaigns')->name('campaigns');
@@ -42,9 +43,11 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('/update_unread', 'ChatController@update_unread');
         Route::post('/refresh_conversations', 'ChatController@refresh_conversations');
     });
-    
-    
-    Route::get('/', 'CampaignsController@campaigns')->name('campaigns');
+
+    Route::group(['prefix' => 'templates'], function(){
+        Route::get('/', 'TemplateController@templates')->name('templates');
+        Route::post('/add_template', 'TemplateController@add_template');
+    });
 });
 
 
