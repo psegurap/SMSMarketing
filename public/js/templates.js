@@ -36,7 +36,15 @@ $(document).ready(function(){
             $('.spinner-upload').css('display', 'inline-block');
 
             axios.post(homepath + '/templates/add_template', {template : template}).then(function(response){
-                window.location.reload();
+                $('.wait-text').hide();
+                $('.spinner-upload').hide();
+                $('#add-template').show();
+                $('#template-input').val('');
+                Snackbar.show({
+                    text: 'Yout template was added.',
+                    actionTextColor: '#fff',
+                    backgroundColor: '#1abc9c'
+                });
             }).catch(function(error){
                 console.log(error);
             });
