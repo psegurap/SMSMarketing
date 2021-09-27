@@ -3,21 +3,29 @@
 namespace App\Http\Controllers;
 use App\Conversation;
 use App\Contact;
+use App\Template;
+use App\Property;
 
 use Illuminate\Http\Request;
 use \Nexmo\Client;
-
+use Auth;
 
 
 class ChatController extends Controller
 {
     public function conversations(){
         $contacts = $this->get_conversations();
-        return view('conversations', compact('contacts'));
+        $templates = Template::all();
+        $current_user = Auth::user()->name;
+        return view('conversations', compact('contacts', 'templates', 'current_user'));
     }
 
     public function get_conversations(){
-        $contacts = Contact::with('conversations')->wherehas('conversations')->get();
+        $contacts = Contact::with(['conversations'])->wherehas('conversations')->get();
+        $contacts = $contacts->map(function ($contact) {
+            $contact['property'] = Property::where('contact_id', $contact->id)->first()->value('property_street_address');
+            return $contact;
+        });
         return $contacts;
     }
 

@@ -4,6 +4,9 @@ $(document).ready(function(){
         el : '#ChatList-ConversationDetails',
         data : {
             contacts : contacts,
+            templates : templates,
+            custom_templates : [],
+            current_user : current_user,
             current_contact : null,
             updated_conversations_length : null,
             timer : null
@@ -19,13 +22,22 @@ $(document).ready(function(){
                 }
             });
 
+            $('#templates_select').on('change', function (){
+                if ($(this).find(':selected').text() != '') {
+                    $('.mail-write-box').val($(this).find(':selected').text());
+                    $('#templates_select').val("");
+                }
+            });
+
             this.timer = setInterval(this.RefreshConversations, 10000);
         },
         computed : {
-            
+
         },
         methods: {
             OpenChat : function (event, contact){
+                $('.chat-conversation-box').removeClass('ps ps--active-y');
+                this.UpdateTemplates(contact);
                 var _this = this;
                 if ($(event.target).hasClass('person')) {
                     $(event.target).removeClass('unread')
@@ -34,7 +46,7 @@ $(document).ready(function(){
                 }
 
                 this.current_contact = contact;
-
+                
                 axios.post(homepath + '/conversations/update_unread', {contact_info : contact} ).then(function(response){
                     _this.contacts = response.data.contacts;
                     _this.RefreshTimer();
@@ -90,6 +102,18 @@ $(document).ready(function(){
                 $('.chat-not-selected').css('display', 'flex');
                 $('.overlay-phone-call, .overlay-video-call, .chat-box-inner').hide();
                 $('.user-list-box .person.active').remove();
+            },
+            UpdateTemplates :  function (contact) {
+                this.custom_templates = [];
+                for (let index in templates) {
+                    let template_info = templates[index]['template'];
+                    
+                    template_info = template_info.replace('{contact}', contact.first_name);
+                    template_info = template_info.replace('{name}', current_user);
+                    template_info = template_info.replace('{address}', contact.property);
+                    
+                    this.custom_templates.push(template_info);
+                }
             },
             RefreshConversations : function () {
                 var _this = this;

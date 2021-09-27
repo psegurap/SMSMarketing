@@ -6,6 +6,14 @@
     .chat-system .user-list-box .people .person{
         padding: 1em 2em;
     }
+
+    .chat-form {
+        margin-bottom: 3px;
+    }
+
+    .form-control {
+        border-radius: 0;
+    }
 </style>
 @endsection
 @section('page_name')
@@ -107,10 +115,10 @@
 
                                 <div class="chat-action-btn align-self-center mr-2">
                                     <span title="Info" @click="PropertyInfo()">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="text-black" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
                                     </span>
                                     <span title="Archive" @click="ArchiveProperty()">
-                                        <svg title="Archive" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-archive"><polyline points="21 8 21 21 3 21 3 8"></polyline><rect x="1" y="3" width="22" height="5"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="text-black" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-archive"><polyline points="21 8 21 21 3 21 3 8"></polyline><rect x="1" y="3" width="22" height="5"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg>
                                     </span>
                                 </div>
                             </div>
@@ -130,6 +138,12 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                                         <input type="text" class="mail-write-box form-control" placeholder="Message"/>
                                     </form>
+                                    <div class="form-group">
+                                        <select id="templates_select" class="form-control">
+                                            <option selected disabled value="">Select template...</option>
+                                            <option v-for="template in custom_templates">@{{template}}</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -151,6 +165,8 @@
 <script>
     SetSidebarActiveOption('.conversations-menu');
     var contacts = {!! json_encode($contacts) !!};
+    var templates = {!! json_encode($templates) !!};
+    var current_user = {!! json_encode($current_user) !!};
 </script>
 
 @endsection
