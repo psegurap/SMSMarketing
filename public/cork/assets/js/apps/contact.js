@@ -155,25 +155,25 @@ function addContact() {
   });  
 }
 
-$('#addContactModal').on('hidden.bs.modal', function (e) {
-    var $_name = document.getElementById('c-name');
-    var $_email = document.getElementById('c-email');
-    var $_occupation = document.getElementById('c-occupation');
-    var $_phone = document.getElementById('c-phone');
-    var $_location = document.getElementById('c-location');
-    var $_getValidationField = document.getElementsByClassName('validation-text');
+// $('#addContactModal').on('hidden.bs.modal', function (e) {
+//     var $_name = document.getElementById('c-name');
+//     var $_email = document.getElementById('c-email');
+//     var $_occupation = document.getElementById('c-occupation');
+//     var $_phone = document.getElementById('c-phone');
+//     var $_location = document.getElementById('c-location');
+//     var $_getValidationField = document.getElementsByClassName('validation-text');
 
-    var $_setNameValueEmpty = $_name.value = '';
-    var $_setEmailValueEmpty = $_email.value = '';
-    var $_setOccupationValueEmpty = $_occupation.value = '';
-    var $_setPhoneValueEmpty = $_phone.value = '';
-    var $_setLocationValueEmpty = $_location.value = '';
+//     var $_setNameValueEmpty = $_name.value = '';
+//     var $_setEmailValueEmpty = $_email.value = '';
+//     var $_setOccupationValueEmpty = $_occupation.value = '';
+//     var $_setPhoneValueEmpty = $_phone.value = '';
+//     var $_setLocationValueEmpty = $_location.value = '';
 
-    for (var i = 0; i < $_getValidationField.length; i++) {
-      e.preventDefault();
-      $_getValidationField[i].style.display = 'none';
-    }
-})
+//     for (var i = 0; i < $_getValidationField.length; i++) {
+//       e.preventDefault();
+//       $_getValidationField[i].style.display = 'none';
+//     }
+// })
 
 function editContact() {
   $('.edit').on('click', function(event) {

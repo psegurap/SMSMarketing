@@ -47,6 +47,8 @@ Route::group(['middleware' => ['auth']], function(){
     Route::group(['prefix' => 'templates'], function(){
         Route::get('/', 'TemplateController@templates')->name('templates');
         Route::post('/add_template', 'TemplateController@add_template');
+        Route::post('/update_template/{template_id}', 'TemplateController@update_template');
+        Route::post('/delete_template/{template_id}', 'TemplateController@delete_template');
     });
 });
 

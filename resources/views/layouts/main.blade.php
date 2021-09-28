@@ -12,6 +12,7 @@
     <link href="{{asset('cork/assets/css/plugins.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('cork\plugins\notification\snackbar\snackbar.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('cork\plugins\sweetalerts\sweetalert.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('cork\plugins\sweetalerts\sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
 
     <!-- BEGIN PAGE LEVEL STYLES -->
@@ -361,6 +362,7 @@
     <script src="{{asset('js/libraries/axios.js')}}"></script>
     <script src="{{asset('cork\plugins\notification\snackbar\snackbar.min.js')}}"></script>    
     <script src="{{asset('cork\plugins\sweetalerts\sweetalert.js')}}"></script>    
+    <script src="{{asset('cork\plugins\sweetalerts\sweetalert2.min.js')}}"></script>    
     <script src="{{asset('js/main.js')}}"></script>
     <script>
         var homepath = "{{url('/')}}";
