@@ -96,7 +96,7 @@ $(document).ready(function(){
         }).then(function(result) {
             if (result.value) {
                 axios.post(homepath + '/templates/delete_template/' + current_template).then(function(response){
-                    $('[data-templateid="' + 3 + '"]').parents('tr:first').remove();
+                    $('[data-templateid="' + current_template + '"]').parents('tr:first').remove();
                     Snackbar.show({
                         text: 'Your template was deleted.',
                         actionTextColor: '#fff',
