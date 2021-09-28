@@ -28,7 +28,7 @@ $(document).ready(function(){
                 $('#addContactModal .modal-title').text('Update Tamplate');
                 $('#addContactModal #add-template').text('Update');
                 $('#add-template').data('submit', 'update');
-                $('#addContactModal input').val($(this).parent().siblings('.sorting_1').text())
+                $('#addContactModal input').val($(this).parent().siblings('.template').text())
                 $('#addContactModal').modal('show');
                 break;
             case 'Delete':
